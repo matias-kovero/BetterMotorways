@@ -69,11 +69,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameClasses\Models.cs" />
     <Compile Include="Main.cs" />
+    <Compile Include="Patches\Simulation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="GameClasses\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy "$(TargetDir)" "C:\Program Files (x86)\Steam\steamapps\common\Mini Motorways\Bepinex\plugins\$(ProjectName)\" /q /s /y /i</PostBuildEvent>
+  </PropertyGroup>
 </Project>

@@ -8,7 +8,31 @@ Currently it seems there aren't any counter measurements for _"hacking"_
 ### Features
 
 ## Usage
-TODO
+Install [BepInEx](https://github.com/BepInEx/BepInEx/releases/tag/v5.4.13) for 32bit (x86)  
+> The game is 32bit, this is why you need to install 32bit BepInEx.  
+
+Extract BepInEx to game folder.  
+Located in: `..\Steam\steamapps\common\Mini Motorways`  
+Your folder should look something like:
+```
+|-- BepInEx
+|-- Mini Motorways_Data
+|-- doorstop_config
+|-- Mini Motorways.exe
+|-- winhttp.dll
+...
+...
+```
+Install this mod under Releases. Extract the folder from the installed `.zip` 
+and move it under `BepInEx\plugins\` 
+
+Your plugins folder should look like
+```
+|-- BetterMotorways
+  | -- BetterMotorways.dll
+```
+Run the game once and close it. This will create an config file under: `BepInEx\config`
+Edit values under created config file and enjoy the mod.
 
 ## Development
-TODO
+Information on development [here](/BetterMotorways/).

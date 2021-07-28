@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using BepInEx;
+using BepInEx.Configuration;
 using HarmonyLib;
 
 namespace BetterMotorways
@@ -17,6 +18,10 @@ namespace BetterMotorways
     internal readonly Assembly assembly;
 
     public static readonly bool isDebug = true;
+
+    /* Config Values */
+    public static ConfigEntry<bool> stopVehicleCollisions;
+
     /**
      * Constructor
      */
@@ -30,7 +35,7 @@ namespace BetterMotorways
      */
     public void Awake()
     {
-
+      stopVehicleCollisions = Config.Bind("Simulation", nameof(stopVehicleCollisions), false);
     }
     /**
      * Entrypoint for Harmony plugins.
