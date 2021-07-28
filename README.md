@@ -6,6 +6,15 @@ __Better Motorways__ is an BepInEx Mod allowing modification of the core game.
 This mod modifies game runtime, it might be seen as hacking.  
 Currently it seems there aren't any counter measurements for _"hacking"_
 ### Features
+- Customise Simulation Rules
+  - Vehicles
+  - Lanes
+  - Traffic Lights
+  - Building Spawning
+  - Suburb Spawning
+  - Big Pins
+  - Demand
+- Toggle Vechicle collision
 
 ## Usage
 Install [BepInEx](https://github.com/BepInEx/BepInEx/releases/tag/v5.4.13) for 32bit (x86)  
@@ -31,7 +40,7 @@ Your plugins folder should look like
 |-- BetterMotorways
   | -- BetterMotorways.dll
 ```
-Run the game once and close it. This will create an config file under: `BepInEx\config`
+Run the game once and close it. This will create an config file under: `BepInEx\config`  
 Edit values under created config file and enjoy the mod.
 
 ## Development

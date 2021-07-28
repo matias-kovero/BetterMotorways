@@ -1,5 +1,6 @@
 # Development / Tutorial
-Small-ish tutorial to get you started with BepInEx modding framework. You can use this repository code for your base, or follow this tutorial to create one from scratch.  
+Small-ish tutorial to get you started with BepInEx modding framework.   
+You can use this repository code for your base, or follow this tutorial to create one from scratch.  
 Using BepInEx is relative straightforward and fast.  
 It took ~1h to create BetterMotorways - altho a lot of that was debugging errors.
 
@@ -35,9 +36,9 @@ More info: [BepInEx documentation](https://docs.bepinex.dev/master/articles/dev_
 Notes: Use dnSpy to check version of the `.dll`
 
 ## Add Dependecies / References
-Create an Libs folder in your solution folder and copy `.dll` there.  
+Create an `Libs` folder in your solution folder and copy `.dll` there.  
 Following `.dlls` are mandatory:
-```js
+```rust
 UnityEngine.dll // Found under `<Game Name>_Data\Managed`
 UnityEngine.CoreModule.dll //`<Game Name>_Data\Managed`
 BepInEx.dll // Found under `BepInEx\core`
@@ -45,9 +46,10 @@ BepInEx.dll // Found under `BepInEx\core`
 BepInEx.Harmony.dll // `BepInEx\core`
 ```
 Game specific `.dlls`
-```js
+```rust
 App.dll // Found under `<Game Name>_Data\Managed`
 ```
+> Please exlude this folder in your `.gitignore` as it will containt the games `.dll` and those will contain game code. You can't share game code without an explicit permission from the game developers.
 Notes: Use dnSpy to locate the `.dll` that contains game code. If you want support for private functions use Assebly Publicize on this and add the publicized `.dll` to references.
 
 Then on your Visual Studio right click References -> Add References -> Browse.  
@@ -70,7 +72,9 @@ If you are using ScriptEngine. Debug version creates hotswapped version. Release
 if $(ConfigurationName) == Debug (xcopy "$(TargetPath)" "Bepinex_PATH\scripts\" /q /s /y /i) ELSE (xcopy "$(TargetDir)" "Bepinex_PATH\plugins\$(ProjectName)\" /q /s /y /i & xcopy "$(TargetPath)" "Bepinex_PATH\scripts\" /q /s /y /i)
 ```
 # Mod Entrypoint
-Open your entrypoint `.cs` file. Named `Class1.cs` or `Main.cs`. It is the `.cs` that is in the solution root.
+Open your entrypoint `.cs` file. Named `Class1.cs` or `Main.cs`.  
+
+> It is the `.cs` that is in the solution root.  
 
 Here is an basic snippet to get everything working.
 
@@ -138,8 +142,8 @@ This is totally optional but I like to have an file structure:
   |-- Patch1.cs
 |-- Main.cs
 ```
-Game classes are referenced to classes found in game assbembly. Use dnSpy to check these classes in `App.dll`  
-Patches will have files that will have our own custom code that will patch game functions.
+`GameClasses` are referenced to classes found in game assbembly. Use dnSpy to check these classes in `App.dll`  
+`Patches` will have files that will have our own custom code that will patch game functions.
 
 ## Finding an function to patch
 You will need to analyze the game code with dnSpy to find functions you would like to edit. I'll show an example to remove checks on vehicle collisions.  
@@ -234,8 +238,8 @@ namespace BetterMotorways.GameClasses
 As we are following the class structure of the original game, you will create bunch of classes.
 > In the long run it is easier to update your code as it follows the same hierarchy as the original game code.
 
-But our patches are now spreaded in multiple classes. This is where the Patches folder comes to use.
-Create new file to Patches i'll create an file named Simulation.cs
+But our patches are now spreaded in multiple classes. This is where the `Patches` folder comes to use.
+Create new file in Patches. I'll create an file named `Simulation.cs`
 
 ```c#
 namespace BetterMotorways.Patches
@@ -249,15 +253,15 @@ namespace BetterMotorways.Patches
   }
 }
 ```
-And now editing our code in Models.cs
+And now editing our code in `Models.cs`
 ```c#
 __result = Patches.Simulation.VehiclesCollide();
 return false;
 ```
-In this simple example it does not seems neccecary to move our patching code under Patches folder, but in more complex patches where you would need communication between functions, it is easier to have them in the same class.
+In this simple example it does not seems necessary to move our patching code under Patches folder, but in more complex patches were you would need communication between functions, it is easier to have them in the same class.
 
 # Configuration
-We have now created an really simple patch that will everytime return false when the game check if an vehicle is colliding. Now we should give the user an option to select if they want to use our patch.
+We have now created an really simple patch that will return false everytime when the game check if an vehicle is colliding. Now we should give the user an option to select if they want to use our patch.
 
 ### Creating an ConfigEntry
 First lets add an config option under your Mod Entrypoint in this case its in `Main.cs`
